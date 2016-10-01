@@ -4,13 +4,13 @@ We may want to use str.join rather than appending a number every time.
 """
 
 
-def contact_numbers():
+def concat_numbers():
     """
-    Contact with join
+    Concat with join
     """
 
     print "".join(repr(n) for n in xrange(1, 101))
 
 if __name__ == "__main__":
 
-    contact_numbers()
+    concat_numbers()
