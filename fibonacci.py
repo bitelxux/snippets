@@ -4,8 +4,6 @@ def fib(n):
        return []
     elif n == 1:
        return [0]
-    elif n == 2:
-       return [0, 1]
 
     a, b = 0, 1
     fib_list = [a, b]
@@ -22,10 +20,6 @@ def fib_generator(n):
        return
     elif n == 1:
        yield 0
-       return
-    elif n == 2:
-       yield 0
-       yield 1
        return
 
     a, b = 0, 1
