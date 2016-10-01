@@ -1,6 +1,12 @@
-expected = [0, 1, 1, 2, 3, 5, 8, 13, 21, 34]
-
 def fib(n):
+
+    if n == 0:
+       return []
+    elif n == 1:
+       return [0]
+    elif n == 2:
+       return [0, 1]
+
     a, b = 0, 1
     fib_list = [a, b]
 
@@ -11,6 +17,17 @@ def fib(n):
     return fib_list
 
 def fib_generator(n):
+
+    if n == 0:
+       return
+    elif n == 1:
+       yield 0
+       return
+    elif n == 2:
+       yield 0
+       yield 1
+       return
+
     a, b = 0, 1
     yield a
     yield b
@@ -18,14 +35,12 @@ def fib_generator(n):
        yield a+b
        a, b = b, a+b 
 
-# without generator
-result = fib(10)
-print result
-assert expected == result
-
-# with generator
-result =  list(fib_generator(10))
-print result
-assert expected == result
+for n in 0, 1, 2, 3, 10:
+  print "n = {} No generator".format(n)
+  result = fib(n)
+  print result
+  print "n = {} With generator".format(n)
+  result =  list(fib_generator(n))
+  print result
 
 
