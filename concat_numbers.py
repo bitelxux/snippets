@@ -9,7 +9,7 @@ def concat_numbers():
     Concat with join
     """
 
-    print "".join(repr(n) for n in xrange(1, 101))
+    print "".join(repr(n) for n in xrange(0, 101))
 
 if __name__ == "__main__":
 
