@@ -47,4 +47,6 @@ def resolv(bitmap):
     return len(objects)
 
 if __name__ == "__main__":
-    print "Different objects: %d" % resolv(bitmap)
+    objects = resolv(bitmap) 
+    print "Different objects: %d" % objects
+    assert objects == 3
