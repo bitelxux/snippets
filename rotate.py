@@ -1,5 +1,6 @@
 """
 Given a square matrix, rotate it 90 degrees clockwise
+2016 bitelxux
 """
 
 def create_matrix(dim):
