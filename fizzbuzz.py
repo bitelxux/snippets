@@ -1,3 +1,6 @@
+"""
+FizzFuzz
+"""
 
 def fizzfuzz_with_generator():
     """
