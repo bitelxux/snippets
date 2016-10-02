@@ -17,7 +17,7 @@ def get_result():
 
 def get_result_comb():
     """
-    froute force solution
+    broute force solution
     """
     maximum = 0
     combs = itertools.combinations(LIST, 3)
