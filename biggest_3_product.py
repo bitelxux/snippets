@@ -1,5 +1,5 @@
 """
-Get the biggest product give by three numbers in a list
+Get the biggest product give by three numbers in a list.
 """
 
 import itertools
