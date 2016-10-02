@@ -30,3 +30,5 @@ if __name__ == "__main__":
 
     result = get_result()
     print result
+    result = get_result_comb()
+    print result
