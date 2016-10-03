@@ -1,6 +1,6 @@
 """
-You have a list of integers, and for each index you want to find the
- product of every integer except the integer at that index.
+Given list of integers, and for each index you want to find the
+product of every integer except the integer at that index.
 """
 
 m = [1, 2, 3, 4, 5, 6, 7]
