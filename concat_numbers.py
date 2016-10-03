@@ -3,8 +3,6 @@ Build a string with the numbers from 0 to 100, "012345678910111213..."
 We may want to use str.join rather than appending a number every time.
 """
 
-patata
-
 def concat_numbers():
     """
     Concat with join
