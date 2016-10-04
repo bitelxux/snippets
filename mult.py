@@ -3,8 +3,6 @@ Given list of integers, and for each index you want to find the
 product of every integer except the integer at that index.
 """
 
-# Hi Ovidiu
-
 m = [1, 2, 3, 4, 5, 6, 7]
 
 for i in range(len(m)):
