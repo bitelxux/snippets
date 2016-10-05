@@ -2,6 +2,10 @@
 Given list of integers, and for each index you want to find the
 product of every integer except the integer at that index.
 Do not use division !!
+
+Example
+
+Given [2, 4, 5, 6] The result should be [120, 60, 48, 40]
 """
 
 import time
