@@ -4,7 +4,8 @@ product of every integer except the integer at that index.
 Do not use division !!
 """
 
-m = [1, 2, 3, 4, 5, 6, 7]
+m = [1+i%4 for i in xrange(0, 20)]
+result = []
 
 for i in range(len(m)):
   lside = m[:i]
@@ -13,4 +14,7 @@ for i in range(len(m)):
   left = reduce(lambda x,y: x*y, len(lside) > 1 and lside or lside + [1])
   right = reduce(lambda x,y: x*y, len(rside) > 1 and rside or rside + [1])
 
-  print "%d: %s %s: %d" %(i, lside, rside, left*right)
+  #print "%d: %s %s: %d" %(i, lside, rside, left*right)
+  result.append(left * right )
+
+print result
