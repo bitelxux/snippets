@@ -4,7 +4,7 @@ product of every integer except the integer at that index.
 Do not use division !!
 """
 
-m = [1+i%4 for i in xrange(0, 3)]
+m = [1+i%4 for i in xrange(0, 5000)]
 result = []
 
 for i in range(len(m)):
