@@ -4,11 +4,13 @@ product of every integer except the integer at that index.
 Do not use division !!
 """
 
-import timeit
 import time
 
-the_list = [1+index % 4 for index in xrange(0, 20)]
-
+the_list = [1 + index % 4 for index in xrange(0, 20)]
+expected = [7962624, 3981312, 2654208, 1990656, 7962624, 3981312,
+            2654208, 1990656, 7962624, 3981312, 2654208, 1990656,
+            7962624, 3981312, 2654208, 1990656, 7962624, 3981312,
+            2654208, 1990656]
 
 def approach1():
     """
@@ -52,11 +54,12 @@ def approach2():
 
 def run_approach(approach):
     t0 = time.time()
-    print approach()
+    result = approach()
     print time.time() - t0
+    return result
 
 
 if __name__ == "__main__":
 
-    run_approach(approach1)
-    run_approach(approach2)
+    assert expected == run_approach(approach1)
+    assert expected == run_approach(approach2)
