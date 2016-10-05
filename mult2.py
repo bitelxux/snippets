@@ -1,4 +1,11 @@
-results = []
+"""
+Given list of integers, and for each index you want to find the
+product of every integer except the integer at that index.
+Do not use division !!
+
+
+This is an inefficient version
+"""
 
 def sub_count(total, sub_num):
   count = 0
@@ -9,11 +16,8 @@ def sub_count(total, sub_num):
 
 array = [1+i%4 for i in xrange(0, 40)]
 total = reduce(lambda x,y: x*y, array)
-#print 'total ',total
-#print '------'
+results = []
 
 for a in array:
    results.append(sub_count(total,a))
 
-#print array
-#print results
