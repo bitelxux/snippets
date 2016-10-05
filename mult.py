@@ -12,6 +12,15 @@ expected = [7962624, 3981312, 2654208, 1990656, 7962624, 3981312,
             7962624, 3981312, 2654208, 1990656, 7962624, 3981312,
             2654208, 1990656]
 
+def timing(f):
+    def inner(*args, **kwargs):
+        t0 = time.time()
+        result = f(*args, **kwargs)
+        print time.time() - t0
+        return result
+    return inner
+
+@timing
 def approach1():
     """
     This approach is using substraction to mimic division.
@@ -35,6 +44,7 @@ def approach1():
     return result
 
 
+@timing
 def approach2():
     """
     This approach turns out to be much more efficient, being
@@ -52,14 +62,7 @@ def approach2():
 
     return result
 
-def run_approach(approach):
-    t0 = time.time()
-    result = approach()
-    print time.time() - t0
-    return result
-
-
 if __name__ == "__main__":
 
-    assert expected == run_approach(approach1)
-    assert expected == run_approach(approach2)
+    assert expected == approach1()
+    assert expected == approach2()
