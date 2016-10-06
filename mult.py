@@ -68,18 +68,16 @@ def approach2():
 
 @timing
 def approach3():
-    product = 1
     """
     Thanks to Ovidiu Miron
     This approach turns out to be the best so far.
     It keeps partial multiplications in order to skip extra
     calculations ( like happens with approach2 )
     """
-    output = [product]
+    output = [1]
     l = len(the_list)
     for idx in range(1, l):
-        product *= the_list[idx-1]
-        output.append(product)
+        output.append(output[-1] * the_list[idx-1])
     product = 1
     for idx in range(l-2, -1, -1):
         product *= the_list[idx+1]
@@ -92,3 +90,4 @@ if __name__ == "__main__":
     assert expected == approach1()
     assert expected == approach2()
     assert expected == approach3()
+
