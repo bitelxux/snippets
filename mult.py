@@ -70,7 +70,7 @@ def approach2():
 def approach3():
     product = 1
     """
-    Thank's to Ovidiu Miron
+    Thanks to Ovidiu Miron
     This approach turns out to be the best so far.
     It keeps partial multiplications in order to skip extra
     calculations ( like happens with approach2 )
