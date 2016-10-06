@@ -66,7 +66,23 @@ def approach2():
 
     return result
 
+@timing
+def approach3():
+    product = 1
+    output = [product]
+    l = len(the_list)
+    for idx in range(1, l):
+        product *= the_list[idx-1]
+        output.append(product)
+    product = 1
+    for idx in range(l-2, -1, -1):
+        product *= the_list[idx+1]
+        output[idx] *= product
+
+    return output
+
 if __name__ == "__main__":
 
     assert expected == approach1()
     assert expected == approach2()
+    assert expected == approach3()
