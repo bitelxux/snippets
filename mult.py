@@ -17,6 +17,9 @@ expected = [7962624, 3981312, 2654208, 1990656, 7962624, 3981312,
             2654208, 1990656]
 
 def timing(f):
+    """
+    A nice decorator to measure how long the decorated method takes
+    """
     def inner(*args, **kwargs):
         t0 = time.time()
         result = f(*args, **kwargs)
