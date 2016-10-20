@@ -10,6 +10,8 @@ for a0 in xrange(t):
     b,w = [long(b),long(w)]
     x,y,z = raw_input().strip().split(' ')
     x,y,z = [long(x),long(y),long(z)]
+
+    # My code bellow this point
     
     cost_b = min(x, y + z)
     cost_w = min(y, x + z)
