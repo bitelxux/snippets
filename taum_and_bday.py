@@ -5,7 +5,7 @@ import sys
 
 t = int(raw_input().strip())
 for a0 in xrange(t):
-    min_price = 10**1000
+    min_price = float('inf')
     b,w = raw_input().strip().split(' ')
     b,w = [long(b),long(w)]
     x,y,z = raw_input().strip().split(' ')
