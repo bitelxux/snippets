@@ -11,7 +11,7 @@ d1,m1,y1 = [int(d1),int(m1),int(y1)]
 d2,m2,y2 = raw_input().strip().split(' ')
 d2,m2,y2 = [int(d2),int(m2),int(y2)]
 
-real = y1 * 10000 + m1 * 100 + d1
+actual = y1 * 10000 + m1 * 100 + d1
 expected = y2 * 10000 + m2 * 100 + d2
 
 if real <= expected:
