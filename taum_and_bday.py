@@ -18,3 +18,4 @@ for a0 in xrange(t):
     
     best_price = min(best_price, b * cost_b + w * cost_w) 
     print best_price
+
