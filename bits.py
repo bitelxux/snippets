@@ -14,7 +14,6 @@ def option1(number):
          current += 1
          maximum = max(maximum, current)
       else:
-         maximum = max(maximum, current)
          current = 0
   return maximum 
 
@@ -30,7 +29,6 @@ def option2(number):
        current += 1
        maximum = max(maximum, current)
     else:
-       maximum = max(maximum, current)
        current = 0
     number = number >> 1
   return maximum 
