@@ -1,5 +1,5 @@
 """
-given an integer, print the maximum bits set to 1 in a row
+given an integer, print the maximum bits in a row set to 1
 """
 
 def option1(number):
