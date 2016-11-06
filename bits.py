@@ -9,9 +9,10 @@ def option1(number):
   """
   maximum = 0
   current = 0
-  for bit in bin(number)[3:]:
+  for bit in bin(number)[2:]:
       if bit == '1':
          current += 1
+         maximum = max(maximum, current)
       else:
          maximum = max(maximum, current)
          current = 0
@@ -19,14 +20,15 @@ def option1(number):
 
 def option2(number):
   """
-  This approach use binary switch until the number
-  is 0
+  This approach use binary shift operator until the number
+  becomes 0
   """
   maximum = 0
   current = 0
   while number != 0:
-    if number % 2 != 0:
+    if number & 1:
        current += 1
+       maximum = max(maximum, current)
     else:
        maximum = max(maximum, current)
        current = 0
@@ -35,7 +37,8 @@ def option2(number):
 
 if __name__ == "__main__":
 
-    number = 1091926925308
-    assert option1(number) == 11
-    assert option2(number) == 11
+    number = 17061358204
+    print bin(number)
+    print option1(number)
+    print option2(number)
    
