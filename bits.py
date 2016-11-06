@@ -38,7 +38,7 @@ def option2(number):
 if __name__ == "__main__":
 
     number = 17061358204
+    print number
     print bin(number)
-    print option1(number)
-    print option2(number)
+    assert option1(number) == option2(number) == 7 
    
