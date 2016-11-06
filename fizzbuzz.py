@@ -2,6 +2,9 @@
 FizzFuzz
 """
 
+def one_line():
+    print '\n'.join("Fizz"*(idx%3==0)+"Buzz"*(idx%5==0) or str(idx) for idx in xrange(1,101)) 
+
 def fizzfuzz_with_generator():
     """
     fizzfuzz game using a generator
@@ -46,3 +49,5 @@ if __name__ == "__main__":
     fizzfuzz()
     print "\nGenerator:"
     fizzfuzz_with_generator()
+    print "\nOne line:"
+    one_line()
