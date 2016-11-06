@@ -8,13 +8,13 @@ def option1(number):
   and counts the consecutive '1'
   """
   maximum = 0
-  current = 0
+  local_maximum = 0
   for bit in bin(number)[2:]:
       if bit == '1':
-         current += 1
-         maximum = max(maximum, current)
+         local_maximum += 1
+         maximum = max(maximum, local_maximum)
       else:
-         current = 0
+         local_maximum = 0
   return maximum 
 
 def option2(number):
@@ -23,13 +23,13 @@ def option2(number):
   becomes 0
   """
   maximum = 0
-  current = 0
+  local_maximum = 0
   while number != 0:
     if number & 1:
-       current += 1
-       maximum = max(maximum, current)
+       local_maximum += 1
+       maximum = max(maximum, local_maximum)
     else:
-       current = 0
+       local_maximum = 0
     number = number >> 1
   return maximum 
 
