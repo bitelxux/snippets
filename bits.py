@@ -19,7 +19,7 @@ def option1(number):
 
 def option2(number):
   """
-  This approach use binary shift operator until the number
+  This approach uses binary shift operator until the number
   becomes 0
   """
   maximum = 0
