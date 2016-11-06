@@ -1,53 +1,54 @@
 """
-FizzFuzz
+FizzBuzz
 """
 
 def one_line():
-    print ', '.join("Fizz"*(idx%3==0)+"Buzz"*(idx%5==0) or str(idx) for idx in xrange(1,51)) 
-
-def fizzfuzz_with_generator():
-    """
-    fizzfuzz game using a generator
-    """
-    print ", ".join(str(i) for i in list(fizzfuzz_generator()))
+    print ', '.join("Fizz"*(i%3==0)+"Buzz"*(i%5==0) or str(i) for i in xrange(1,51)) 
 
 
-def fizzfuzz_generator():
+def FizzBuzz_with_generator():
     """
-    fizzfuzz generator
+    FizzBuzz game using a generator
+    """
+    print ", ".join(str(i) for i in list(FizzBuzz_generator()))
+
+
+def FizzBuzz_generator():
+    """
+    FizzBuzz generator
     """
     for i in range(1, 51):
         if not i % 3 and not i % 5:
-            yield "fizzfuzz"
+            yield "FizzBuzz"
         elif not i % 3:
-            yield "fizz"
+            yield "Fizz"
         elif not i % 5:
-            yield "fuzz"
+            yield "Buzz"
         else:
             yield i
 
 
-def fizzfuzz():
+def FizzBuzz():
     """
-    fizzfuzz game
+    FizzBuzz game
     """
 
     for i in range(1, 51):
         comma = i != 50 and ", " or ""
         if not i % 3 and not i % 5:
-            print "fizzfuzz{0}".format(comma),
+            print "FizzBuzz{0}".format(comma),
         elif not i % 3:
-            print "fizz{0}".format(comma),
+            print "Fizz{0}".format(comma),
         elif not i % 5:
-            print "fuzz{0}".format(comma),
+            print "Buzz{0}".format(comma),
         else:
             print "{0}{1}".format(i, comma),
 
 if __name__ == "__main__":
 
     print "Basic:"
-    fizzfuzz()
+    FizzBuzz()
     print "\nGenerator:"
-    fizzfuzz_with_generator()
+    FizzBuzz_with_generator()
     print "\nOne line:"
     one_line()
