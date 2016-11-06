@@ -5,7 +5,7 @@ given an integer, print the maximum bits in a row set to 1
 def option1(number):
   """
   This approach converts the number to a "binary" string
-  and counts the consecutive '1'
+  and counts the consecutive '1s'
   """
   maximum = 0
   local_maximum = 0
