@@ -9,4 +9,4 @@ def tree(directory):
           tree(fullpath)
 
 if __name__ == "__main__":
-    tree("/home/cnn/dev")
+    tree("/usr/bin")
