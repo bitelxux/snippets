@@ -2,22 +2,36 @@
 FizzBuzz
 """
 
+N = 1000000
+
+import time
+def timing(f):
+    def inner(*args, **kwargs):
+        t0 = time.time()
+        result = f(*args, **kwargs)
+        print "{0:.12f}".format(time.time() - t0)
+        return result
+    return inner
+
+
+@timing
 def one_line():
-    print ', '.join("Fizz"*(i%3==0)+"Buzz"*(i%5==0) or str(i) for i in xrange(1,51)) 
+    return ', '.join("Fizz"*(i%3==0)+"Buzz"*(i%5==0) or str(i) for i in xrange(1,N+1)) 
 
 
+@timing
 def FizzBuzz_with_generator():
     """
     FizzBuzz game using a generator
     """
-    print ", ".join(str(i) for i in list(FizzBuzz_generator()))
+    return ", ".join(str(i) for i in list(FizzBuzz_generator()))
 
 
 def FizzBuzz_generator():
     """
     FizzBuzz generator
     """
-    for i in range(1, 51):
+    for i in range(1, N+1):
         if not i % 3 and not i % 5:
             yield "FizzBuzz"
         elif not i % 3:
@@ -27,22 +41,21 @@ def FizzBuzz_generator():
         else:
             yield i
 
-
+@timing
 def FizzBuzz():
     """
     FizzBuzz game
     """
 
-    for i in range(1, 51):
-        comma = i != 50 and ", " or ""
+    result = []
+    for i in range(1, N+1):
         if not i % 3 and not i % 5:
-            print "FizzBuzz{0}".format(comma),
+            result.append("FizzBuzz")
         elif not i % 3:
-            print "Fizz{0}".format(comma),
+            result.append("Fizz")
         elif not i % 5:
-            print "Buzz{0}".format(comma),
-        else:
-            print "{0}{1}".format(i, comma),
+            result.append("Buzz")
+    return result
 
 if __name__ == "__main__":
 

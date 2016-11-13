@@ -4,8 +4,7 @@ def best(stocks):
     min_val = min(stocks[0], stocks[1])
     max_proffit = stocks[1] - stocks[0] if stocks[1] > stocks[0] else 0
     for val in stocks[2:]:
-        if val - min_val > max_proffit:
-           max_proffit = val - min_val
+        max_proffit = max(max_proffit, val - min_val)
         min_val = min(val, min_val)
     return max_proffit
 
