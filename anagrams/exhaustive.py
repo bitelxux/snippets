@@ -1,4 +1,8 @@
 def test_exhaustive(self):
+    """
+    Exhaustive test which tests the anagrams for
+    all the words in the example dictionary
+    """
 
     _, r = self.anagrams2.get_anagrams("aarhus")
     self.assertEqual(r, ['aarhus'])

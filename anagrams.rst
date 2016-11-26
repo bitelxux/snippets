@@ -36,8 +36,11 @@ word1 and word2 are anagrams.
 Assumtions
 ----------
 
-- Anagrams are **no** case sensitive so "Star" is an anagram of "Tras".
+- One given word is anagram of itself.
+- Anagrams are **not** case sensitive so "Star" is an anagram of "Tras".
 - Special caracters as " ' " are considered as regular caracters too.
+
+.. page::
 
 Solutions
 ---------
@@ -55,7 +58,7 @@ Solution 1
 
 This approach collects all the words in the dictionary and stores them in a list.
 In order to find the anagrams for a given word, the algorithm needs
-to sort each of the words in the dictionary to compair them to the
+to sort each of the words in the dictionary to compare them to the
 sorted given word.
 
 The building of the list is very fast, as no operation involved.
@@ -67,8 +70,10 @@ complely walked in order to find anagrams.
   :linenos: true
   :linenos_offset: true
   :include: anagrams/anagrams.py
-  :start-after: # rst-Anagrams0
-  :end-before: # rst-Anagrams1
+  :start-after: # rst-Anagrams1
+  :end-before: # rst-Anagrams2
+
+.. page::
 
 Solution 2
 ..........
@@ -90,8 +95,10 @@ given word will return all its anagrams.
   :linenos: true
   :linenos_offset: true
   :include: anagrams/anagrams.py
-  :start-after: # rst-Anagrams1
-  :end-before: # rst-Anagrams2
+  :start-after: # rst-Anagrams2
+  :end-before: # rst-Anagrams3
+
+.. page::
 
 Solution 3
 ..........
@@ -109,8 +116,101 @@ used for the keys is fixed to *size of integer* * number of words.
   :linenos: true
   :linenos_offset: true
   :include: anagrams/anagrams.py
-  :start-after: # rst-Anagrams2
+  :start-after: # rst-Anagrams3
   :end-before: # rst-Tests
 
 Results
 -------
+
+Solution 1, as expected, has a very bad performance.
+
+Running each of the aproaches 500 times, Solution 1 is between 5000 and 8000
+times slower than Solution 2 and Solution 3
+
+========== ============== ============= ===============
+ta/tb          Solution 1    Solution 2      Solution 3
+========== ============== ============= ===============
+Solution1                   7763.218794     7645.291891
+Solution2                                      0.984810
+========== ============== ============= ===============
+
+Solution 2 and Solution 3 are almonst the same, being Solution 2 slightly 
+faster than Solution 3 ( probably because of the cost of hash ).
+
+Solution 3 is, however, less memory consumming.
+
+.. page::
+
+Figure 1 representes the times for the three solutions. Huge difference between 
+Solution 1 and Solutions 2 and 3 prevent the latter to be visible.
+
+.. figure:: output/anagrams1.png
+    :alt: Three solutions. Ran 50 times
+
+    Fig. :counter:`figure`: 50 ran times, solutions 1, 2 and 3
+
+.. page::
+
+Figure 2 represents times for solutions 2 and 3. Both solutions present
+a very similar performance.
+
+.. figure:: output/anagrams2.png
+    :alt: Best solutions. Ran 5000 times
+
+    Fig. :counter:`figure`: 5000 ran times, solutions 2 and 3
+
+
+.. page::
+
+Having a look to these results, the election of Solution 2 or Solution 3
+would depend on which is more important in a real proyect:
+
+* Is it critical to be as fast as possible and to use more memory is
+  not a big deal ? 
+
+  Solution 2 wins.
+
+* Is it critical to save memory and having a slighty slower algorithm is
+  suitable ?
+
+  Solution 3 wins.
+
+Latest considerations
+---------------------
+
+* About tests
+
+  An exhaustive test is ran covering 100% of the words in the given dictionary
+
+* About threading
+
+  All solutions are thread safe
+
+* About performance
+
+  Solutions 2 and 3 have a very good performance.
+
+Test environment
+----------------
+
+* Intel(R) Core(TM) i5-5300U CPU @ 2.30GHz.
+* Linux Mint 17
+* Python 2.7.6
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

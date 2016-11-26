@@ -18,6 +18,7 @@ import unittest
 
 
 CUR_DIR = os.path.dirname(os.path.realpath(__file__))
+OUTPUT_DIR = os.path.join(CUR_DIR, "../output")
 
 class PureVirtualMethod(Exception):
     pass
@@ -31,17 +32,42 @@ def timing(f):
         return t, result
     return inner
 
-class statistics(object):
+class Statistics(object):
+    """
+    This class implements different statistics for the different solutions
+    It also generates some csv files to be able to process them later on,
+    for example with gnuplot
+    """
     source = os.path.join(CUR_DIR, 'words.txt')
+
     def __init__(self):
-        anagrams1 = Anagrams1(self.source)
-        anagrams2 = Anagrams1(self.source)
-        anagrams3 = Anagrams1(self.source)
+        self.anagrams1 = Anagrams1(self.source)
+        self.anagrams2 = Anagrams2(self.source)
+        self.anagrams3 = Anagrams3(self.source)
+        self.workers = [self.anagrams1, self.anagrams2, self.anagrams3]
+
+    def ratios(self):
+        averages = []
+        for worker in self.workers:
+            elapsed = 0
+            for i in xrange(500):
+                t, _ = worker.get_anagrams('plates')
+                elapsed += t
+            averages.append(elapsed/100.0)
+
+        rat1_2 = averages[0]/averages[1] 
+        rat1_3 = averages[0]/averages[2] 
+        rat2_3 = averages[1]/averages[2] 
+ 
+        print "1 vs 2: %f" % rat1_2
+        print "1 vs 3: %f" % rat1_3
+        print "2 vs 3: %f" % rat2_3
 
     def gen_csv_all(self):
-        output = open(os.path.join(CUR_DIR, "anagram.csv"), 'w')
+        output_file = os.path.join(OUTPUT_DIR, "anagrams1.csv")
+        output = open(output_file, 'w')
         output.write("anagrams1, anagrams2,anagrams3\n")
-        for i in xrange(50):
+        for i in xrange(100):
             t0, _ = self.anagrams1.get_anagrams('plates')
             t1, _ = self.anagrams2.get_anagrams('plates')
             t2, _ = self.anagrams3.get_anagrams('plates')
@@ -49,13 +75,14 @@ class statistics(object):
         output.close()
 
     def gen_csv_best(self):
-        output = open(os.path.join(CUR_DIR, "anagram.csv"), 'w')
-        output.write("anagrams1, anagrams2,anagrams3\n")
+        output_file = os.path.join(OUTPUT_DIR, "anagrams2.csv")
+        output = open(output_file, 'w')
         for i in xrange(5000):
             t1, _ = self.anagrams2.get_anagrams('plates')
             t2, _ = self.anagrams3.get_anagrams('plates')
             output.write("%f, %f\n" %(t1, t2))
         output.close()
+
 
 class Anagrams(object):
 
@@ -170,3 +197,7 @@ class TestAnagrams(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
+    #statistics = Statistics()
+    #statistics.ratios()
+    #statistics.gen_csv_all()
+    #statistics.gen_csv_best()
