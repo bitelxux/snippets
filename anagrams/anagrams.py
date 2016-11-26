@@ -1,10 +1,26 @@
 #!/usr/bin/python
 
+"""
+Given a words.txt file containing a newline-delimited list of dictionary
+words, please implement the Anagrams class so that the get_anagrams() method
+returns all anagrams from words.txt for a given word.
+
+**Bonus requirements:**
+
+  - Optimise the code for fast retrieval
+  - Write more tests
+  - Thread safe implementation
+"""
+
 import os
 import time
 import unittest
 
+
 CUR_DIR = os.path.dirname(os.path.realpath(__file__))
+
+class PureVirtualMethod(Exception):
+    pass
 
 def timing(f):
     def inner(self, *args, **kwargs):
@@ -15,89 +31,142 @@ def timing(f):
         return t, result
     return inner
 
-
-# Anagrams0
-class Anagrams0:
-
+class statistics(object):
+    source = os.path.join(CUR_DIR, 'words.txt')
     def __init__(self):
-        self.words = open('words.txt').readlines()
-                  
+        anagrams1 = Anagrams1(self.source)
+        anagrams2 = Anagrams1(self.source)
+        anagrams3 = Anagrams1(self.source)
+
+    def gen_csv_all(self):
+        output = open(os.path.join(CUR_DIR, "anagram.csv"), 'w')
+        output.write("anagrams1, anagrams2,anagrams3\n")
+        for i in xrange(50):
+            t0, _ = self.anagrams1.get_anagrams('plates')
+            t1, _ = self.anagrams2.get_anagrams('plates')
+            t2, _ = self.anagrams3.get_anagrams('plates')
+            output.write("%f, %f, %f\n" %(t0, t1, t2))
+        output.close()
+
+    def gen_csv_best(self):
+        output = open(os.path.join(CUR_DIR, "anagram.csv"), 'w')
+        output.write("anagrams1, anagrams2,anagrams3\n")
+        for i in xrange(5000):
+            t1, _ = self.anagrams2.get_anagrams('plates')
+            t2, _ = self.anagrams3.get_anagrams('plates')
+            output.write("%f, %f\n" %(t1, t2))
+        output.close()
+
+class Anagrams(object):
+
+    def __init__(self, source):
+        self.source = source
+
+    def get_anagrams(self, word):
+        raise PureVirtualMethod("Pure virtual method. Must be redefined")
+
+# rst-Anagrams1
+class Anagrams1(Anagrams):
+    """
+    Very poor performance: This approach collects all the words in the
+    dictionary and stores them in a list.
+    In order to find the anagrams for a given word, the algorithm needs
+    to sort each of the words in the dictionary to compare them to the
+    sorted given word.
+    """
+
+    def __init__(self, source):
+        Anagrams.__init__(self, source)
+        self.words = [w[:-2].lower() for w in open(self.source).readlines()]
+
     @timing
     def get_anagrams(self, word):
         anagrams = []
         word = "".join(c for c in sorted(word.lower()))
         for w in self.words:
-            if "".join(c for c in sorted(w[:-2].lower())) == word:
-                anagrams.append(w[:-2])
-	return anagrams
-       
+            if len(w) != len(word):
+                continue
+            if "".join(c for c in sorted(w)) == word:
+                anagrams.append(w)
+        return anagrams
 
-# Anagrams1
-class Anagrams1:
 
-    def __init__(self):
+# rst-Anagrams2
+class Anagrams2(Anagrams):
+    """
+    Much better performance: Create a python dictionary where for each
+    original word in the words dictionary, it stores:
+         - key: the original sorted word
+         - value: all the words that once ordered are the same.
+    """
+
+    def __init__(self, source):
+        Anagrams.__init__(self, source)
         self.words = {}
-        with open('words.txt') as words:
-             for word in words:
-                base = word.lower()[:-2]
-                key = "".join(c for c in sorted(base))
+        with open(self.source) as words:
+            for word in [w[:-2].lower() for w in words]:
+                key = "".join(c for c in sorted(word))
                 self.words.setdefault(key, [])
-                self.words[key].append(base)
-                  
+                self.words[key].append(word)
+
     @timing
     def get_anagrams(self, word):
         key = "".join(c for c in sorted(word.lower()))
         return self.words.get(key, [])
 
 
-# Anagrams2
-class Anagrams2:
+# rst-Anagrams3
+class Anagrams3(Anagrams):
+    """
+    Hash keys: Create a python dictionary where for each
+    original word in the words dictionary, it stores:
+      - key: the hash of the original sorted word
+      - value: all the words that once ordered have the same hash.
+    """
 
-    def __init__(self):
+    def __init__(self, source):
+        Anagrams.__init__(self, source)
         self.hashes = {}
-        with open('words.txt') as words:
-             for word in words:
-                base = word.lower()[:-2]
-                key = hash("".join(c for c in sorted(base)))
+        with open(self.source) as words:
+            for word in [w[:-2].lower() for w in words]:
+                key = hash("".join(c for c in sorted(word)))
                 self.hashes.setdefault(key, [])
-                self.hashes[key].append(base)
-        #pprint.pprint(self.hashes)
-                  
+                self.hashes[key].append(word)
+
     @timing
     def get_anagrams(self, word):
         key = hash("".join(c for c in sorted(word.lower())))
         return self.hashes.get(key, [])
 
-
+# rst-Tests
 class TestAnagrams(unittest.TestCase):
-    anagrams0 = Anagrams0()
-    anagrams1 = Anagrams1()
-    anagrams2 = Anagrams2()
 
-    def test_statistics(self):
+    source = os.path.join(CUR_DIR, 'words.txt')
 
-        output = open(os.path.join(CUR_DIR, "anagrams.csv"), 'w')
-        output.write("anagrams1,anagrams2\n")
-        for i in xrange(200):
-            #t0, r0 = anagrams0.get_anagrams('plates')
-            self.assertEquals(r0, ['palest', 'pastel', 
-                                   'petals', 'plates', 'staple'])
-            t1, r1 = self.anagrams1.get_anagrams('plates')
-            self.assertEquals(r1, ['palest', 
-                                   'pastel', 'petals', 'plates', 'staple'])
-            t2, r2 = self.anagrams2.get_anagrams('pastel')
-            self.assertEquals(r2, ['palest', 'pastel', 
-                                   'petals', 'plates', 'staple'])
-            if i < 20:
-               continue
-            output.write("%f, %f\n" %(t1, t2))
-        output.close()  
+    def setUp(self):
+        self.anagrams1 = Anagrams1(self.source)
+        self.anagrams2 = Anagrams2(self.source)
+        self.anagrams3 = Anagrams3(self.source)
 
-    def test_anagrams(self):
-        t2, r2 = self.anagrams2.get_anagrams('pastel')
-        self.assertEquals(r2, ['palest', 'pastel',
-                               'petals', 'plates', 'staple'])
-          
+    def test_pure_virtual(self):
+        class AnagramsX(Anagrams):
+            def __init__(self, source):
+                Anagrams.__init__(self, source)
+
+        anagrams = AnagramsX(self.source)
+        self.assertRaises(PureVirtualMethod, anagrams.get_anagrams, 'pastel')
+
+
+    def test_exaustive(self):
+        """
+        This tests tests all anagrams for all words in the given
+        dictionary !!
+        They are not ran as individual tests because the required resources
+        for it would be massive.
+        """
+        import exhaustive
+        exhaustive.test_exhaustive(self)
+
 
 if __name__ == '__main__':
     unittest.main()
